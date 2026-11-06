@@ -69,57 +69,136 @@ export default function Navbar({
 
   return (
     <>
-      {/* Main Header (Sticky: h-16 on mobile, h-20 on tablet, h-26 on desktop) - Full Width Luxury Bar */}
-      <header className="sticky top-0 z-40 bg-[#F7F1E8]/98 backdrop-blur-md border-b border-[#E5DDD0] w-full shadow-2xs">
-        <div className="w-full px-3 sm:px-6 lg:px-8 xl:px-12">
-          <div className="flex items-center justify-between h-15 sm:h-20 lg:h-26 xl:h-28 gap-2 sm:gap-4 xl:gap-6">
-            {/* 1. LEFT: Mobile Triggers & Brand Logo */}
-            <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 shrink-0">
-              {/* Mobile Menu Button */}
+      {/* Sticky Main Header Container */}
+      <header className="sticky top-0 z-40 bg-[#FAF7F2]/98 backdrop-blur-md border-b border-[#E5DDD0] w-full shadow-2xs">
+        {/* ============================================================ */}
+        {/* 1. DEDICATED MOBILE HEADER (Matches Reference Image Exactly) */}
+        {/* ============================================================ */}
+        <div className="block lg:hidden w-full">
+          {/* Top Row: Hamburger Menu (Left) | Centered Logo (Center) | Action Icons (Right) */}
+          <div className="px-3.5 h-14 sm:h-16 flex items-center justify-between relative border-b border-[#E5DDD0]/50">
+            {/* Left: Clean Hamburger Icon Button */}
+            <div className="flex items-center shrink-0 w-24 justify-start">
               <button
                 onClick={() => setMobileMenuOpen(true)}
-                className="lg:hidden w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-[#E5DDD0] bg-white flex items-center justify-center text-[#141210] hover:text-[#541827] hover:border-[#541827] cursor-pointer transition shadow-2xs active:scale-95"
+                className="p-1 -ml-1 text-[#141210] hover:text-[#541827] cursor-pointer transition active:scale-95"
                 aria-label="Open mobile menu"
               >
-                <Menu className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.4]" />
+                <Menu className="w-6 h-6 stroke-[2]" />
               </button>
+            </div>
 
-              {/* Mobile Quick City Chip */}
+            {/* Center: Brand Logo (Centered perfectly) */}
+            <div
+              onClick={() => {
+                onSelectCategory("all");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center cursor-pointer py-1"
+            >
+              <img
+                src="/assets/duppatilogo.png"
+                alt="DUPPATI Cozy Home"
+                className="h-9 sm:h-11 w-auto max-w-[170px] sm:max-w-[200px] object-contain select-none drop-shadow-[0_1px_3px_rgba(0,0,0,0.05)]"
+              />
+            </div>
+
+            {/* Right: Search, Wishlist Heart, Shopping Bag with red count badge */}
+            <div className="flex items-center justify-end gap-3 sm:gap-4 shrink-0 w-24">
+              {/* Search */}
               <button
-                onClick={onOpenCityPicker}
-                className="lg:hidden flex items-center gap-1 px-2.5 py-1 rounded-full border border-[#E5DDD0] bg-white text-[10px] font-bold text-[#141210] hover:border-[#541827] transition shadow-2xs cursor-pointer active:scale-95"
-                title="Change delivery destination"
+                onClick={() => {
+                  if (onOpenMobileSearch) {
+                    onOpenMobileSearch();
+                  } else {
+                    setIsSearchModalOpen(true);
+                  }
+                }}
+                className="p-1 text-[#141210] hover:text-[#541827] cursor-pointer transition active:scale-95"
+                aria-label="Search Catalog"
               >
-                <MapPin className="w-3 h-3 text-[#C28A42]" />
-                <span className="max-w-[70px] truncate">{selectedCity.split(" ")[0]}</span>
-                <ChevronDown className="w-2.5 h-2.5 text-stone-400" />
+                <Search className="w-5 h-5 stroke-[2]" />
               </button>
 
-              {/* Brand Logo - On the Left */}
+              {/* Wishlist */}
+              <button
+                onClick={() => {
+                  onSelectCategory("all");
+                  const el = document.getElementById("department-showcases");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="p-1 text-[#141210] hover:text-[#541827] cursor-pointer transition active:scale-95 relative"
+                aria-label="Wishlist"
+              >
+                <Heart className="w-5 h-5 stroke-[2]" />
+                {wishlist.length > 0 && (
+                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#85182a] text-white text-[9px] font-bold flex items-center justify-center shadow-xs">
+                    {wishlist.length}
+                  </span>
+                )}
+              </button>
+
+              {/* Bag with Count Badge */}
+              <button
+                onClick={openCart}
+                className="p-1 text-[#141210] hover:text-[#541827] cursor-pointer transition active:scale-95 relative"
+                aria-label="Shopping Bag"
+              >
+                <ShoppingBag className="w-5 h-5 stroke-[2]" />
+                {cartCount > 0 && (
+                  <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-[#85182a] text-white text-[9px] font-black flex items-center justify-center shadow-xs">
+                    {cartCount}
+                  </span>
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* Row 2: Location Indicator Strip ("📍 Deliver to Hyderabad ⌵") */}
+          <div className="px-4 py-2 bg-[#FAF7F2] flex items-center justify-start">
+            <button
+              onClick={onOpenCityPicker}
+              className="inline-flex items-center gap-1.5 text-xs text-[#141210] hover:text-[#541827] transition cursor-pointer active:scale-98"
+              title="Change Delivery Location"
+            >
+              <MapPin className="w-3.5 h-3.5 text-[#541827] stroke-[2] shrink-0" />
+              <span className="text-stone-500 font-normal">Deliver to</span>
+              <span className="font-bold text-[#141210]">{selectedCity.split(" ")[0]}</span>
+              <ChevronDown className="w-3 h-3 text-stone-600 shrink-0" />
+            </button>
+          </div>
+        </div>
+
+        {/* ============================================================ */}
+        {/* 2. DEDICATED DESKTOP HEADER (Full-Width Luxury Bar)           */}
+        {/* ============================================================ */}
+        <div className="hidden lg:block w-full px-6 lg:px-8 xl:px-12">
+          <div className="flex items-center justify-between h-20 lg:h-24 xl:h-26 gap-4 xl:gap-6">
+            {/* 1. LEFT: Brand Logo */}
+            <div className="flex items-center shrink-0">
               <div
                 onClick={() => {
                   onSelectCategory("all");
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
-                className="flex items-center cursor-pointer py-1 group pr-1 sm:pr-2 xl:pr-4"
+                className="flex items-center cursor-pointer py-1 group pr-4"
               >
                 <img
                   src="/assets/duppatilogo.png"
                   alt="DUPPAT Cozy Homezzz"
-                  className="h-10 sm:h-13 md:h-16 lg:h-22 xl:h-24 max-w-[170px] xs:max-w-[190px] sm:max-w-[240px] md:max-w-[280px] lg:max-w-[340px] xl:max-w-[380px] w-auto object-contain transition-all duration-300 group-hover:scale-104 drop-shadow-[0_2px_6px_rgba(0,0,0,0.06)]"
+                  className="h-16 lg:h-20 xl:h-22 w-auto max-w-[280px] lg:max-w-[340px] xl:max-w-[380px] object-contain transition-all duration-300 group-hover:scale-104 drop-shadow-[0_2px_6px_rgba(0,0,0,0.06)]"
                 />
-                {/* Subtle luxury editorial divider on ultra-wide screens */}
                 <div className="hidden 2xl:block h-10 w-[1px] bg-[#E5DDD0] ml-4 shrink-0" />
               </div>
             </div>
 
-            {/* 2. CENTER: Curated Collections Links (Desktop only) */}
-            <nav className="hidden lg:flex items-center gap-2.5 xl:gap-5 2xl:gap-7 text-sm xl:text-[15px] 2xl:text-[16px] tracking-wide uppercase font-extrabold">
+            {/* 2. CENTER: Curated Collections Links */}
+            <nav className="flex items-center gap-3 xl:gap-5 2xl:gap-7 text-sm xl:text-[15px] 2xl:text-[16px] tracking-wide uppercase font-extrabold">
               {/* All Collections Dropdown Trigger */}
               <div className="relative" onMouseEnter={() => setIsMegaMenuOpen(true)}>
                 <button
                   onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
-                  className="flex items-center gap-2 px-3.5 xl:px-4 py-2 rounded-full bg-[#541827] hover:bg-[#43121e] text-white transition-all font-black cursor-pointer shadow-xs whitespace-nowrap text-xs xl:text-sm tracking-wide border border-[#C28A42]/40"
+                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#541827] hover:bg-[#43121e] text-white transition-all font-black cursor-pointer shadow-xs whitespace-nowrap text-xs xl:text-sm tracking-wide border border-[#C28A42]/40"
                 >
                   <Layers className="w-4 h-4 text-[#C28A42]" />
                   <span>All Collections</span>
@@ -132,7 +211,7 @@ export default function Navbar({
               </div>
 
               {/* 6 Direct Collection Links */}
-              <div className="flex items-center gap-2.5 xl:gap-5 2xl:gap-6">
+              <div className="flex items-center gap-3 xl:gap-5 2xl:gap-6">
                 {DEPARTMENTS.map((dept) => {
                   const isActive = activeCategory === dept.id;
                   return (
@@ -163,40 +242,25 @@ export default function Navbar({
             </nav>
 
             {/* 3. RIGHT: Search, City, Wishlist, Account, Bag */}
-            <div className="flex items-center justify-end gap-1.5 sm:gap-2.5 xl:gap-3.5 shrink-0">
+            <div className="flex items-center justify-end gap-2.5 xl:gap-3.5 shrink-0">
               {/* Desktop Search Bar */}
-              <div className="hidden md:flex items-center">
+              <div className="flex items-center">
                 <div className="relative">
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => onSearchChange(e.target.value)}
                     placeholder="Search pure cotton..."
-                    className="w-32 lg:w-40 xl:w-52 2xl:w-60 focus:w-64 pl-4 pr-9 py-2 text-xs xl:text-sm font-bold rounded-full border border-[#E5DDD0] bg-white text-[#141210] placeholder:text-stone-500 placeholder:font-medium focus:outline-none focus:border-[#541827] focus:ring-2 focus:ring-[#541827]/15 transition-all shadow-2xs"
+                    className="w-36 lg:w-44 xl:w-56 2xl:w-64 focus:w-72 pl-4 pr-9 py-2 text-xs xl:text-sm font-bold rounded-full border border-[#E5DDD0] bg-white text-[#141210] placeholder:text-stone-500 placeholder:font-medium focus:outline-none focus:border-[#541827] focus:ring-2 focus:ring-[#541827]/15 transition-all shadow-2xs"
                   />
                   <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#541827] pointer-events-none" />
                 </div>
               </div>
 
-              {/* Mobile Dedicated Search Trigger Button */}
-              <button
-                onClick={() => {
-                  if (onOpenMobileSearch) {
-                    onOpenMobileSearch();
-                  } else {
-                    setIsSearchModalOpen(true);
-                  }
-                }}
-                className="md:hidden w-9 h-9 rounded-full border border-[#E5DDD0] bg-white flex items-center justify-center text-[#141210] hover:text-[#541827] hover:border-[#541827] transition shadow-2xs cursor-pointer active:scale-95"
-                aria-label="Search Catalog"
-              >
-                <Search className="w-4 h-4 stroke-[2.4]" />
-              </button>
-
               {/* Desktop City Selector Pill */}
               <button
                 onClick={onOpenCityPicker}
-                className="hidden xl:flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-[#E5DDD0] bg-white hover:border-[#541827] text-xs xl:text-sm font-bold text-[#141210] transition shadow-2xs cursor-pointer shrink-0"
+                className="flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-[#E5DDD0] bg-white hover:border-[#541827] text-xs xl:text-sm font-bold text-[#141210] transition shadow-2xs cursor-pointer shrink-0"
                 title="Deliver to city"
               >
                 <MapPin className="w-4 h-4 text-[#C28A42] shrink-0" />
@@ -211,44 +275,43 @@ export default function Navbar({
                   const el = document.getElementById("department-showcases");
                   if (el) el.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="w-9 h-9 sm:w-10 sm:h-10 lg:w-11 lg:h-11 rounded-full border border-[#E5DDD0] hover:border-[#541827] hover:bg-white bg-white/90 flex items-center justify-center text-[#141210] hover:text-[#541827] transition shadow-2xs relative cursor-pointer shrink-0 active:scale-95"
+                className="w-10 h-10 lg:w-11 lg:h-11 rounded-full border border-[#E5DDD0] hover:border-[#541827] hover:bg-white bg-white/90 flex items-center justify-center text-[#141210] hover:text-[#541827] transition shadow-2xs relative cursor-pointer shrink-0 active:scale-95"
                 aria-label="Wishlist"
                 title="Wishlist"
               >
-                <Heart className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.4]" />
+                <Heart className="w-5 h-5 stroke-[2.2]" />
                 {wishlist.length > 0 && (
-                  <span className="absolute -top-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#541827] text-white text-[9px] sm:text-[10px] font-black flex items-center justify-center border-2 border-[#F7F1E8]">
+                  <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[#541827] text-white text-[10px] font-black flex items-center justify-center border-2 border-[#FAF7F2]">
                     {wishlist.length}
                   </span>
                 )}
               </button>
 
-              {/* Account (desktop & tablet) */}
+              {/* Account */}
               <button
                 onClick={onOpenCityPicker}
-                className="hidden sm:flex w-9 h-9 sm:w-10 sm:h-10 lg:w-11 lg:h-11 rounded-full border border-[#E5DDD0] hover:border-[#541827] hover:bg-white bg-white/90 items-center justify-center text-[#141210] hover:text-[#541827] transition shadow-2xs cursor-pointer shrink-0"
+                className="w-10 h-10 lg:w-11 lg:h-11 rounded-full border border-[#E5DDD0] hover:border-[#541827] hover:bg-white bg-white/90 flex items-center justify-center text-[#141210] hover:text-[#541827] transition shadow-2xs cursor-pointer shrink-0"
                 aria-label="User Account"
                 title="Account & Delivery Pin"
               >
-                <User className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.4]" />
+                <User className="w-5 h-5 stroke-[2.2]" />
               </button>
 
-              {/* Shopping Bag Trigger - Sleek Circular on Mobile, Full Pill on Tablet/Desktop */}
+              {/* Shopping Bag Trigger */}
               <button
                 onClick={openCart}
-                className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 lg:px-5 py-2 sm:py-2.5 rounded-full bg-[#541827] text-white hover:bg-[#43121e] border border-[#C28A42]/60 shadow-xs hover:shadow-md transition-all cursor-pointer shrink-0 active:scale-95"
+                className="flex items-center gap-2 px-4 lg:px-5 py-2.5 rounded-full bg-[#541827] text-white hover:bg-[#43121e] border border-[#C28A42]/60 shadow-xs hover:shadow-md transition-all cursor-pointer shrink-0 active:scale-95"
                 aria-label="Shopping Bag"
               >
                 <div className="relative">
-                  <ShoppingBag className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#C28A42] stroke-[2.4]" />
+                  <ShoppingBag className="w-4.5 h-4.5 text-[#C28A42] stroke-[2.4]" />
                   {cartCount > 0 && (
                     <span className="absolute -top-2 -right-2.5 w-4 h-4 rounded-full bg-[#C28A42] text-[#29251F] text-[9px] font-black flex items-center justify-center border-2 border-[#541827]">
                       {cartCount}
                     </span>
                   )}
                 </div>
-                {/* On small mobile show Bag count or 'Bag'; on sm+ show live total */}
-                <span className="hidden xs:inline text-xs sm:text-sm lg:text-base font-black tracking-wide font-mono">
+                <span className="text-xs sm:text-sm lg:text-base font-black tracking-wide font-mono">
                   {cartCount > 0 ? (
                     `₹${total.toLocaleString("en-IN")}`
                   ) : (
@@ -262,6 +325,7 @@ export default function Navbar({
 
         {/* Subtle Signature Antique Gold Ribbon Hairline */}
         <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#C28A42]/60 to-transparent" />
+      </header>
 
         {/* Desktop Luxury Editorial Mega Menu */}
         <DepartmentMegaMenu
@@ -454,7 +518,6 @@ export default function Navbar({
             </div>
           </div>
         )}
-      </header>
     </>
   );
 }

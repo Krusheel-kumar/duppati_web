@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import { DEPARTMENTS } from "@/data/products";
+import { LayoutGrid, Bed, Baby, Sofa, UtensilsCrossed, Bath } from "lucide-react";
 
 interface MobileCategoryBarProps {
   activeCategory: string;
@@ -9,6 +10,23 @@ interface MobileCategoryBarProps {
   activeSubcategory?: string;
   onSelectSubcategory?: (subcat: string) => void;
 }
+
+const getDeptIcon = (id: string) => {
+  switch (id) {
+    case "bed_sanctuary":
+      return <Bed className="w-3.5 h-3.5 stroke-[2.2]" />;
+    case "kids_baby":
+      return <Baby className="w-3.5 h-3.5 stroke-[2.2]" />;
+    case "living_luxe":
+      return <Sofa className="w-3.5 h-3.5 stroke-[2.2]" />;
+    case "dining_kitchen":
+      return <UtensilsCrossed className="w-3.5 h-3.5 stroke-[2.2]" />;
+    case "bath_organizers":
+      return <Bath className="w-3.5 h-3.5 stroke-[2.2]" />;
+    default:
+      return null;
+  }
+};
 
 export default function MobileCategoryBar({
   activeCategory,
@@ -31,14 +49,14 @@ export default function MobileCategoryBar({
   const currentDept = DEPARTMENTS.find((d) => d.id === activeCategory);
 
   return (
-    <div className="lg:hidden bg-[#FAF6F0]/98 backdrop-blur-md border-b border-[#E5DDD0] py-2 px-3 sticky top-15 sm:top-20 z-30 shadow-2xs">
+    <div className="lg:hidden bg-[#FAF6F0]/98 backdrop-blur-md border-b border-[#E5DDD0] py-2 px-3 sticky top-[89px] sm:top-[97px] z-30 shadow-2xs">
       {/* 1. Primary Collection Swipeable Rail */}
       <div className="relative">
         <div
           ref={scrollRef}
-          className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 -mx-1 px-1 scroll-smooth"
+          className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5 -mx-1 px-1 scroll-smooth"
         >
-          {/* All Collections pill */}
+          {/* All Creations pill */}
           <button
             onClick={() => {
               onSelectCategory("all", "");
@@ -51,13 +69,14 @@ export default function MobileCategoryBar({
                 : "bg-white text-[#141210] border-[#E5DDD0] hover:border-[#541827]"
             }`}
           >
-            {activeCategory === "all" && <span className="w-1.5 h-1.5 rounded-full bg-[#C28A42]" />}
+            <LayoutGrid className="w-3.5 h-3.5 stroke-[2.2]" />
             <span>All Creations</span>
           </button>
 
-          {/* 6 Curated Department Pills */}
+          {/* 6 Curated Department Pills with Icons */}
           {DEPARTMENTS.map((dept) => {
             const isSelected = activeCategory === dept.id;
+            const Icon = getDeptIcon(dept.id);
             return (
               <button
                 key={dept.id}
@@ -72,7 +91,7 @@ export default function MobileCategoryBar({
                     : "bg-white text-[#141210] border-[#E5DDD0] hover:border-[#541827]"
                 }`}
               >
-                {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-[#C28A42]" />}
+                {Icon}
                 <span>{dept.navLabel}</span>
               </button>
             );
