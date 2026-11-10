@@ -73,10 +73,10 @@ export default function Navbar({
         {/* 1. DEDICATED MOBILE HEADER (Matches Reference Image Exactly) */}
         {/* ============================================================ */}
         <div className="block lg:hidden w-full">
-          {/* Top Row: Balanced 3-column layout (Hamburger Left | Centered Logo | Actions Right) */}
-          <div className="px-3 sm:px-4 h-16 sm:h-18 grid grid-cols-[auto_1fr_auto] items-center border-b border-[#E5DDD0]/50 relative">
+          {/* Top Row: Left Menu | Big Dead-Centered Logo | Right Actions */}
+          <div className="px-3 sm:px-4 h-16 sm:h-18 flex items-center justify-between relative border-b border-[#E5DDD0]/50">
             {/* Left: Clean Hamburger Icon Button */}
-            <div className="flex items-center justify-start shrink-0">
+            <div className="flex items-center shrink-0 w-12 justify-start z-20">
               <button
                 onClick={() => setMobileMenuOpen(true)}
                 className="w-9 h-9 flex items-center justify-center text-[#141210] hover:text-[#541827] rounded-lg active:bg-stone-100 cursor-pointer transition active:scale-95"
@@ -86,32 +86,30 @@ export default function Navbar({
               </button>
             </div>
 
-            {/* Center: Brand Logo (Comfortably Centered with Generous Margins & No Overlap) */}
-            <div className="flex items-center justify-center px-2 overflow-hidden">
-              <div
-                onClick={() => {
-                  onSelectCategory("all");
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
-                className="cursor-pointer py-1 group select-none flex items-center justify-center max-w-full"
-              >
-                <div className="relative flex items-center justify-center">
-                  <img
-                    src="/assets/duppati_logo_clean.png"
-                    alt="DUPPATI Cozy Home"
-                    className="h-11 sm:h-13 w-auto max-w-[145px] sm:max-w-[180px] object-contain transition-all duration-300 group-hover:scale-103 drop-shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
-                  />
+            {/* Center: Brand Logo (Exactly Dead-Center of Viewport, Big & Majestic Size) */}
+            <div
+              onClick={() => {
+                onSelectCategory("all");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex items-center justify-center cursor-pointer py-1 group select-none z-10 max-w-[calc(100vw-170px)]"
+            >
+              <div className="relative flex items-center justify-center">
+                <img
+                  src="/assets/duppati_logo_clean.png"
+                  alt="DUPPATI Cozy Home"
+                  className="h-13 sm:h-15 w-auto max-w-[185px] sm:max-w-[230px] object-contain transition-all duration-300 group-hover:scale-103 drop-shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
+                />
 
-                  {/* Subtle Periodic Luxury Light Shimmer Sweep */}
-                  <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-xl z-20">
-                    <div className="w-1/2 h-full bg-gradient-to-r from-transparent via-white/45 to-transparent animate-brand-gleam" />
-                  </div>
+                {/* Subtle Periodic Luxury Light Shimmer Sweep */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-xl z-20">
+                  <div className="w-1/2 h-full bg-gradient-to-r from-transparent via-white/45 to-transparent animate-brand-gleam" />
                 </div>
               </div>
             </div>
 
-            {/* Right: Search, Wishlist Heart, Shopping Bag (Comfortably Spaced with Clear Separation from Logo) */}
-            <div className="flex items-center justify-end gap-1 sm:gap-2 shrink-0">
+            {/* Right: Search, Wishlist Heart, Shopping Bag (Cleanly Separated with Generous Breathing Room) */}
+            <div className="flex items-center justify-end gap-1 sm:gap-1.5 shrink-0 z-20">
               {/* Search */}
               <button
                 onClick={() => {
@@ -121,7 +119,7 @@ export default function Navbar({
                     setIsSearchModalOpen(true);
                   }
                 }}
-                className="w-9 h-9 flex items-center justify-center text-[#141210] hover:text-[#541827] rounded-lg active:bg-stone-100 cursor-pointer transition active:scale-95"
+                className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center text-[#141210] hover:text-[#541827] rounded-lg active:bg-stone-100 cursor-pointer transition active:scale-95"
                 aria-label="Search Catalog"
               >
                 <Search className="w-4.5 h-4.5 sm:w-5 sm:h-5 stroke-[2]" />
@@ -134,12 +132,12 @@ export default function Navbar({
                   const el = document.getElementById("department-showcases");
                   if (el) el.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="w-9 h-9 flex items-center justify-center text-[#141210] hover:text-[#541827] rounded-lg active:bg-stone-100 cursor-pointer transition active:scale-95 relative"
+                className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center text-[#141210] hover:text-[#541827] rounded-lg active:bg-stone-100 cursor-pointer transition active:scale-95 relative"
                 aria-label="Wishlist"
               >
                 <Heart className="w-4.5 h-4.5 sm:w-5 sm:h-5 stroke-[2]" />
                 {wishlist.length > 0 && (
-                  <span className="absolute top-1 right-1 w-3.5 h-3.5 rounded-full bg-[#85182a] text-white text-[8px] font-bold flex items-center justify-center shadow-xs">
+                  <span className="absolute top-0.5 right-0.5 w-3.5 h-3.5 rounded-full bg-[#85182a] text-white text-[8px] font-bold flex items-center justify-center shadow-xs">
                     {wishlist.length}
                   </span>
                 )}
@@ -148,12 +146,12 @@ export default function Navbar({
               {/* Bag with Count Badge */}
               <button
                 onClick={openCart}
-                className="w-9 h-9 flex items-center justify-center text-[#141210] hover:text-[#541827] rounded-lg active:bg-stone-100 cursor-pointer transition active:scale-95 relative"
+                className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center text-[#141210] hover:text-[#541827] rounded-lg active:bg-stone-100 cursor-pointer transition active:scale-95 relative"
                 aria-label="Shopping Bag"
               >
                 <ShoppingBag className="w-4.5 h-4.5 sm:w-5 sm:h-5 stroke-[2]" />
                 {cartCount > 0 && (
-                  <span className="absolute top-1 right-1 w-3.5 h-3.5 rounded-full bg-[#85182a] text-white text-[8px] font-black flex items-center justify-center shadow-xs">
+                  <span className="absolute top-0.5 right-0.5 w-3.5 h-3.5 rounded-full bg-[#85182a] text-white text-[8px] font-black flex items-center justify-center shadow-xs">
                     {cartCount}
                   </span>
                 )}
@@ -181,30 +179,8 @@ export default function Navbar({
         {/* ============================================================ */}
         <div className="hidden lg:block w-full px-6 lg:px-8 xl:px-12 max-w-[1800px] mx-auto">
           <div className="relative flex items-center justify-between h-22 lg:h-25 w-full">
-            {/* 1. LEFT: Brand Logo (Significantly Bigger, Premium, Clean Presentation) */}
-            <div className="flex items-center shrink-0 z-10">
-              <div
-                onClick={() => {
-                  onSelectCategory("all");
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
-                className="relative flex items-center cursor-pointer py-1 group select-none"
-              >
-                <img
-                  src="/assets/duppati_logo_clean.png"
-                  alt="DUPPATI Cozy Home"
-                  className="h-16 lg:h-18 xl:h-20 w-auto max-w-[300px] lg:max-w-[360px] xl:max-w-[400px] object-contain transition-all duration-300 group-hover:scale-103 drop-shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
-                />
-
-                {/* Subtle Periodic Luxury Light Shimmer Sweep */}
-                <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-xl z-20">
-                  <div className="w-1/2 h-full bg-gradient-to-r from-transparent via-white/50 to-transparent animate-brand-gleam" />
-                </div>
-              </div>
-            </div>
-
-            {/* 2. MIDDLE: Exactly 5 Quick Links (Centered in the Mathematical Middle of Navbar) */}
-            <nav className="absolute left-1/2 -translate-x-1/2 flex items-center gap-5 lg:gap-7 xl:gap-8 text-xs lg:text-[13px] tracking-[0.16em] uppercase font-bold text-[#141210] z-10">
+            {/* 1. LEFT: Exactly 5 Quick Links (Clean Left Alignment) */}
+            <nav className="flex items-center gap-4 lg:gap-6 xl:gap-7 text-xs lg:text-[13px] tracking-[0.16em] uppercase font-bold text-[#141210] z-10 shrink-0">
               {/* 1. Bedding */}
               <button
                 onClick={() => {
@@ -287,6 +263,28 @@ export default function Navbar({
                 <span>Bestsellers</span>
               </button>
             </nav>
+
+            {/* 2. DEAD CENTER: Brand Logo (Significantly Bigger, Dead-Center Placement, Luxury Shimmer) */}
+            <div
+              onClick={() => {
+                onSelectCategory("all");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex items-center justify-center cursor-pointer py-1 group select-none z-10"
+            >
+              <div className="relative flex items-center justify-center">
+                <img
+                  src="/assets/duppati_logo_clean.png"
+                  alt="DUPPATI Cozy Home"
+                  className="h-16 lg:h-18 xl:h-20 w-auto max-w-[280px] lg:max-w-[340px] xl:max-w-[400px] object-contain transition-all duration-300 group-hover:scale-103 drop-shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
+                />
+
+                {/* Subtle Periodic Luxury Light Shimmer Sweep */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-xl z-20">
+                  <div className="w-1/2 h-full bg-gradient-to-r from-transparent via-white/50 to-transparent animate-brand-gleam" />
+                </div>
+              </div>
+            </div>
 
             {/* 3. RIGHT: Search, Wishlist, and Prominently Pinned Shopping Bag */}
             <div className="flex items-center justify-end gap-2.5 lg:gap-3.5 shrink-0 ml-auto z-10">
