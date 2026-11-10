@@ -109,3 +109,39 @@ body {
   will-change: transform;
 }
 
+/* Luxury Brand Logo Shimmer & Gleam Loop */
+@keyframes brand-gleam {
+  0% {
+    transform: translateX(-160%) skewX(-25deg);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.85;
+  }
+  50% {
+    transform: translateX(260%) skewX(-25deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(260%) skewX(-25deg);
+    opacity: 0;
+  }
+}
+
+.animate-brand-gleam {
+  animation: brand-gleam 4.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes brand-pulse-glow {
+  0%, 100% {
+    filter: drop-shadow(0 2px 10px rgba(194, 138, 66, 0.18));
+  }
+  50% {
+    filter: drop-shadow(0 4px 18px rgba(84, 24, 39, 0.3)) drop-shadow(0 0 14px rgba(194, 138, 66, 0.4));
+  }
+}
+
+.animate-brand-glow {
+  animation: brand-pulse-glow 3.8s ease-in-out infinite;
+}
+

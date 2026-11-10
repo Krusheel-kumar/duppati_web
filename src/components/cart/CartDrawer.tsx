@@ -66,8 +66,8 @@ export default function CartDrawer() {
             <div className="px-6 py-4 border-b border-[#E5DDD0] bg-white flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <img
-                  src="/assets/duppatilogo.png"
-                  alt="DUPPAT Logo"
+                  src="/assets/duppati_logo_clean.png"
+                  alt="DUPPATI"
                   className="h-8 sm:h-10 w-auto object-contain"
                 />
                 <span className="text-xs font-bold text-stone-300">|</span>

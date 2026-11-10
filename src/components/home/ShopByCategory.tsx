@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import { ArrowRight, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 
 interface ShopByCategoryProps {
   activeCategory: string;
@@ -11,11 +12,12 @@ interface CuratedCollection {
   id: string;
   departmentId: string;
   subcategory?: string;
-  label: string;
   title: string;
   tagline: string;
+  tag: string;
   price: string;
   image: string;
+  icon: React.ReactNode;
 }
 
 export default function ShopByCategory({
@@ -23,104 +25,245 @@ export default function ShopByCategory({
   onSelectCategory,
 }: ShopByCategoryProps) {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
 
   const collections: CuratedCollection[] = [
     {
       id: "bed_sanctuary",
       departmentId: "bed_sanctuary",
-      label: "BED & SANCTUARY",
-      title: "Bed Sanctuary",
-      tagline: "400 TC Bedsheets & Mulmul Dohars",
+      title: "Bed & Sanctuary",
+      tagline: "400 TC Bedsheets & Covers",
+      tag: "Pure Combed Cotton",
       price: "₹1,299",
-      image: "/assets/bedcovers/warm-floral-bedding.png",
+      image: "/assets/bedcovers/charcoal-floral-montage.png",
+      icon: (
+        <svg
+          className="w-5 h-5 sm:w-6 sm:h-6"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.9"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20" />
+          <path d="M6 8v3a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V8M14 8v3a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V8" />
+        </svg>
+      ),
     },
     {
-      id: "living_room",
+      id: "pillow_covers",
       departmentId: "living_room",
       subcategory: "Cushion Covers",
-      label: "LIVING ROOM",
-      title: "Living Room Luxe",
-      tagline: "Quilted Cushions & Handloom Throws",
+      title: "Pillow Covers",
+      tagline: "Botanical Slub Cushions",
+      tag: "Hand-Block Motifs",
       price: "₹499",
       image: "/assets/livingroom/living_decorative_cushion_Covers.png",
+      icon: (
+        <svg
+          className="w-5 h-5 sm:w-6 sm:h-6"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.9"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="4" y="4" width="16" height="16" rx="4" />
+          <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+          <path d="M9 12h6M12 9v6" strokeOpacity="0.4" />
+        </svg>
+      ),
     },
     {
-      id: "kitchen_dining",
+      id: "table_linen",
       departmentId: "kitchen_dining",
-      label: "DINING & KITCHEN",
-      title: "Dining & Kitchen",
-      tagline: "Table Runners, Mats & Napkins",
+      title: "Table Linen",
+      tagline: "Runners, Mats & Napkins",
+      tag: "Handwoven Cotton",
       price: "₹699",
       image: "/assets/kitchen/kitchen_tablerunners.png",
-    },
-    {
-      id: "kids_atelier",
-      departmentId: "kids_atelier",
-      label: "KIDS & NURSERY",
-      title: "Kids & Blankets",
-      tagline: "Organic Baby Quilts & Swaddles",
-      price: "₹1,499",
-      image: "/assets/kids/kids_blankets.png",
+      icon: (
+        <svg
+          className="w-5 h-5 sm:w-6 sm:h-6"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.9"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M3 8h18M5 8v12M19 8v12M8 8v5h8V8" />
+          <path d="M7 5h10M4 8l1-3h14l1 3" />
+        </svg>
+      ),
     },
     {
       id: "curtains",
       departmentId: "living_room",
       subcategory: "Curtains",
-      label: "CURTAINS & DRAPES",
       title: "Curtains & Drapes",
-      tagline: "Pure Cotton Light-Filtering Drapes",
+      tagline: "Light-Filtering Panels",
+      tag: "Zero Synthetics",
       price: "₹899",
       image: "/assets/livingroom/living_curtains.png",
+      icon: (
+        <svg
+          className="w-5 h-5 sm:w-6 sm:h-6"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.9"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M3 3h18M4 3v18M20 3v18" />
+          <path d="M4 12c3.5 0 5-4 5-9M20 12c-3.5 0-5-4-5-9" />
+          <path d="M4 12c3.5 0 5 4 5 9M20 12c-3.5 0-5 4-5 9" />
+          <path d="M8 11.5h2M14 11.5h2" />
+        </svg>
+      ),
     },
     {
-      id: "bath_utility",
+      id: "quilts_blankets",
+      departmentId: "kids_atelier",
+      title: "Kids & Blankets",
+      tagline: "Baby Dohars & Cloud Quilts",
+      tag: "Pure Mulmul Cotton",
+      price: "₹1,499",
+      image: "/assets/kids/kids_qutils.png",
+      icon: (
+        <svg
+          className="w-5 h-5 sm:w-6 sm:h-6"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.9"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="3" y="5" width="18" height="5" rx="2" />
+          <rect x="3" y="10" width="18" height="5" rx="2" />
+          <path d="M3 15h18a2 2 0 0 1 2 2v2H1v-2a2 2 0 0 1 2-2z" />
+        </svg>
+      ),
+    },
+    {
+      id: "home_organizers",
       departmentId: "bath_utility",
       subcategory: "Storage Baskets",
-      label: "BATH & STORAGE",
-      title: "Bath & Storage",
-      tagline: "Handcrafted Organizers & Bath Rugs",
+      title: "Home Organizers",
+      tagline: "Quilted Storage Baskets",
+      tag: "Handcrafted Utility",
       price: "₹599",
       image: "/assets/bath/fabric-basket-organizer-set.jpg",
+      icon: (
+        <svg
+          className="w-5 h-5 sm:w-6 sm:h-6"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.9"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M4 10h16l-1.5 10a2 2 0 0 1-2 1.7H7.5a2 2 0 0 1-2-1.7L4 10zM8 10V6a4 4 0 0 1 8 0v4" />
+          <circle cx="10" cy="15" r="0.9" fill="currentColor" />
+          <circle cx="14" cy="15" r="0.9" fill="currentColor" />
+        </svg>
+      ),
     },
   ];
 
-  return (
-    <section className="relative pt-12 sm:pt-20 lg:pt-24 pb-12 sm:pb-16 bg-[#FAF7F2] w-full overflow-hidden border-b border-[#E5DDD0]">
-      {/* Background Subtle Warm Radial Glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[550px] bg-[#C28A42]/6 rounded-full blur-3xl pointer-events-none" />
+  const handleScroll = () => {
+    if (!scrollRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+    const maxScroll = scrollWidth - clientWidth;
+    if (maxScroll > 0) {
+      setScrollProgress((scrollLeft / maxScroll) * 100);
+      const index = Math.round((scrollLeft / maxScroll) * (collections.length - 1));
+      setActiveSlide(index);
+    }
+  };
 
-      <div className="relative z-10 max-w-[1700px] w-full mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
-        {/* 1. Atelier Editorial Header (Two-column layout matching reference) */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 gap-4 sm:gap-8">
-          <div className="max-w-2xl">
-            {/* Gold Dash Eyebrow Kicker */}
-            <div className="flex items-center gap-2.5 text-xs sm:text-[13px] font-bold uppercase tracking-[0.24em] text-[#C28A42] mb-2 sm:mb-3">
-              <span className="w-6 sm:w-8 h-[2px] bg-[#C28A42]" />
-              <span>THE DUPPATI ARCHIVE</span>
+  const scrollLeft = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: -240, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: 240, behavior: "smooth" });
+    }
+  };
+
+  const scrollToSlide = (index: number) => {
+    if (!scrollRef.current) return;
+    const { scrollWidth, clientWidth } = scrollRef.current;
+    const maxScroll = scrollWidth - clientWidth;
+    const target = (maxScroll / (collections.length - 1)) * index;
+    scrollRef.current.scrollTo({ left: target, behavior: "smooth" });
+    setActiveSlide(index);
+  };
+
+  return (
+    <section className="relative pt-8 sm:pt-16 lg:pt-20 pb-0 bg-[#FAF6F0] w-full overflow-hidden border-b border-[#E5DDD0] select-none">
+      {/* Background Ambient Radial Glow */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] bg-[#C28A42]/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="relative z-10 w-full px-3.5 sm:px-8 lg:px-12 xl:px-16">
+        
+        {/* 1. Section Header & Navigation Controls */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between max-w-7xl mx-auto mb-6 sm:mb-12 gap-3">
+          <div className="text-left sm:text-center sm:mx-auto max-w-2xl">
+            {/* Eyebrow */}
+            <div className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase tracking-[0.26em] text-[#541827] mb-1.5 sm:mb-2">
+              <span className="w-5 sm:w-8 h-[1.5px] bg-[#C28A42]" />
+              <span>THE CURATED COLLECTIONS</span>
+              <span className="w-5 sm:w-8 h-[1.5px] bg-[#C28A42]" />
             </div>
 
-            {/* Main Heading with Two-Tone Gradient */}
-            <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#141210] leading-tight tracking-tight">
-              Six Chapters.{" "}
-              <span className="bg-gradient-to-r from-[#541827] via-[#85182a] to-[#C28A42] bg-clip-text text-transparent">
-                Timeless
-              </span>{" "}
-              Comfort
+            {/* Heading */}
+            <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-medium text-[#181512] leading-tight">
+              Shop by Collection
             </h2>
+
+            {/* Subtitle */}
+            <p className="text-xs sm:text-sm text-stone-600 font-light leading-relaxed mt-1 sm:mt-2">
+              From restful bedroom sanctuaries to handcrafted dining linens and bath essentials, curate
+              your entire home in authentic, breathable artisan textiles.
+            </p>
           </div>
 
-          {/* Poetic Right-Aligned Subtext */}
-          <div className="md:max-w-xs lg:max-w-sm md:text-right">
-            <p className="text-xs sm:text-sm text-stone-600 font-normal leading-relaxed">
-              Woven by hand, loved for generations. Six home stories, from quiet sunlit mornings to
-              restful starry nights.
-            </p>
+          {/* Desktop / Tablet Scroll Controls */}
+          <div className="hidden sm:flex items-center gap-2 shrink-0">
+            <button
+              onClick={scrollLeft}
+              className="w-9 h-9 rounded-full bg-white border border-[#E5DDD0] shadow-2xs hover:bg-[#541827] hover:text-white flex items-center justify-center text-stone-700 transition cursor-pointer active:scale-90"
+              aria-label="Scroll left"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              onClick={scrollRight}
+              className="w-9 h-9 rounded-full bg-white border border-[#E5DDD0] shadow-2xs hover:bg-[#541827] hover:text-white flex items-center justify-center text-stone-700 transition cursor-pointer active:scale-90"
+              aria-label="Scroll right"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
           </div>
         </div>
 
-        {/* 2. Ornate Mughal Jharokha Spire Gallery (6 Columns on Desktop, Horizontal Snap on Mobile) */}
-        <div className="flex sm:grid sm:grid-cols-3 lg:grid-cols-6 overflow-x-auto snap-x snap-mandatory gap-4 sm:gap-5 lg:gap-4 xl:gap-6 pb-4 sm:pb-2 px-1 sm:px-0 no-scrollbar">
-          {collections.map((item, idx) => {
+        {/* 2. Interactive Cathedral-Arch Window Cards (Horizontal Snap with Smooth Peek on Mobile) */}
+        <div
+          ref={scrollRef}
+          onScroll={handleScroll}
+          className="flex sm:grid sm:grid-cols-3 lg:grid-cols-6 overflow-x-auto snap-x snap-mandatory gap-3 sm:gap-5 lg:gap-4 xl:gap-5 pb-4 px-1 sm:px-0 no-scrollbar"
+        >
+          {collections.map((item) => {
             const isSelected = activeCategory === item.departmentId;
 
             return (
@@ -133,186 +276,113 @@ export default function ShopByCategory({
                     document.getElementById("department-showcases");
                   if (el) el.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="group cursor-pointer flex flex-col items-center text-center transition-all duration-300 w-[150px] xs:w-[170px] sm:w-auto shrink-0 snap-start"
+                className="group cursor-pointer flex flex-col items-center text-center transition-all duration-300 w-[172px] sm:w-auto shrink-0 snap-start active:scale-98"
               >
-                {/* Authentic Rajputana Jharokha Arch with Brass Kalash Spire */}
-                <div className="relative w-full aspect-[280/430] transition-all duration-500 group-hover:-translate-y-2">
-                  <svg
-                    viewBox="0 0 280 430"
-                    className={`w-full h-full transition-all duration-500 overflow-visible ${
-                      isSelected
-                        ? "drop-shadow-[0_20px_35px_rgba(84,24,39,0.28)] scale-102"
-                        : "drop-shadow-[0_10px_22px_rgba(20,18,16,0.08)] group-hover:drop-shadow-[0_22px_36px_rgba(84,24,39,0.22)]"
-                    }`}
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <defs>
-                      {/* Unique clip path for Jharokha multi-foil arch */}
-                      <clipPath id={`jharokha-clip-${idx}`}>
-                        <path
-                          d="M140,32 
-                             C130,48 116,62 108,68
-                             C100,74 96,78 94,86
-                             C90,98 76,108 68,118
-                             C62,126 58,136 56,148
-                             L56,416
-                             C56,422 61,426 67,426
-                             L213,426
-                             C219,426 224,422 224,416
-                             L224,148
-                             C222,136 218,126 212,118
-                             C204,108 190,98 186,86
-                             C184,78 180,74 172,68
-                             C164,62 150,48 140,32 Z"
-                        />
-                      </clipPath>
-
-                      {/* Subtle Bottom Vignette Gradient */}
-                      <linearGradient id={`jharokha-vignette-${idx}`} x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#000000" stopOpacity="0" />
-                        <stop offset="70%" stopColor="#141210" stopOpacity="0.35" />
-                        <stop offset="100%" stopColor="#141210" stopOpacity="0.75" />
-                      </linearGradient>
-                    </defs>
-
-                    {/* High-Resolution Home Textile Image clipped to Jharokha silhouette */}
-                    <g clipPath={`url(#jharokha-clip-${idx})`}>
-                      <image
-                        href={item.image}
-                        x="36"
-                        y="20"
-                        width="208"
-                        height="418"
-                        preserveAspectRatio="xMidYMid slice"
-                        className="transition-transform duration-700 ease-out group-hover:scale-108"
-                        style={{ transformOrigin: "center" }}
-                      />
-                      {/* Vignette overlay */}
-                      <rect
-                        x="48"
-                        y="260"
-                        width="184"
-                        height="170"
-                        fill={`url(#jharokha-vignette-${idx})`}
-                        className="pointer-events-none"
-                      />
-                    </g>
-
-                    {/* Outer Antique Gold Arch Border */}
-                    <path
-                      d="M140,32 
-                         C130,48 116,62 108,68
-                         C100,74 96,78 94,86
-                         C90,98 76,108 68,118
-                         C62,126 58,136 56,148
-                         L56,416
-                         C56,422 61,426 67,426
-                         L213,426
-                         C219,426 224,422 224,416
-                         L224,148
-                         C222,136 218,126 212,118
-                         C204,108 190,98 186,86
-                         C184,78 180,74 172,68
-                         C164,62 150,48 140,32 Z"
-                      stroke={isSelected ? "#541827" : "#C28A42"}
-                      strokeWidth={isSelected ? "2.6" : "1.8"}
-                      strokeLinejoin="round"
-                      className="transition-colors duration-300"
+                {/* Real High-Resolution Cathedral Arch Window (Pure CSS) */}
+                <div
+                  className={`relative w-full aspect-[3/4.5] rounded-t-[90px] rounded-b-[36px] sm:rounded-t-[120px] sm:rounded-b-[50px] lg:rounded-t-[140px] lg:rounded-b-[60px] overflow-hidden border-[1.5px] transition-all duration-500 bg-white p-1.5 shadow-[0_8px_25px_-5px_rgba(41,37,31,0.08)] ${
+                    isSelected
+                      ? "border-[#541827] ring-2 ring-[#541827]/40 shadow-2xl scale-102"
+                      : "border-[#C28A42]/40 group-hover:border-[#541827] group-hover:shadow-[0_20px_35px_-8px_rgba(84,24,39,0.22)] group-hover:-translate-y-1.5"
+                  }`}
+                >
+                  {/* High-Resolution Photo Container */}
+                  <div className="relative w-full h-full rounded-t-[84px] rounded-b-[30px] sm:rounded-t-[114px] sm:rounded-b-[44px] lg:rounded-t-[134px] lg:rounded-b-[54px] overflow-hidden bg-stone-100">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+                      loading="lazy"
                     />
 
-                    {/* Inner Delicate Gold Hairline Detail */}
-                    <path
-                      d="M140,39 
-                         C132,53 119,66 112,72
-                         C105,78 101,81 100,89
-                         C96,100 83,110 75,120
-                         C70,127 66,136 64,147
-                         L64,410
-                         C64,414 67,418 71,418
-                         L209,418
-                         C213,418 216,414 216,410
-                         L216,147
-                         C214,136 210,127 205,120
-                         C197,110 184,100 180,89
-                         C179,81 175,78 168,72
-                         C161,66 148,53 140,39 Z"
-                      stroke="#C28A42"
-                      strokeWidth="0.8"
-                      strokeOpacity="0.5"
-                    />
+                    {/* Subtle Cinematic Vignette */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
 
-                    {/* Ornate Brass Finial Spire Pinnacle on Top */}
-                    <g
-                      className={`transition-all duration-300 ${
-                        isSelected
-                          ? "scale-110 -translate-y-1"
-                          : "group-hover:-translate-y-1.5 group-hover:scale-105"
-                      }`}
-                      style={{ transformOrigin: "140px 32px" }}
-                    >
-                      {/* Vertical Needle */}
-                      <line
-                        x1="140"
-                        y1="4"
-                        x2="140"
-                        y2="20"
-                        stroke="#C28A42"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                      />
-                      {/* Diamond Jewel */}
-                      <polygon
-                        points="140,12 144,18 140,24 136,18"
-                        fill="#C28A42"
-                        stroke="#541827"
-                        strokeWidth="0.6"
-                      />
-                      {/* Stepped Pedestal Base */}
-                      <ellipse cx="140" cy="27" rx="5.5" ry="2" fill="#C28A42" />
-                      <ellipse cx="140" cy="31" rx="7.5" ry="2.2" fill="#541827" />
-                    </g>
-                  </svg>
+                    {/* Badge Pill overlay on bottom of image */}
+                    <div className="absolute bottom-2.5 inset-x-2 flex items-center justify-center z-10">
+                      <span className="px-2.5 py-0.5 rounded-full bg-white/95 backdrop-blur-md text-[10px] sm:text-xs font-mono font-bold text-[#541827] shadow-sm border border-white/80">
+                        {item.price}+
+                      </span>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Minimalist Under-Arch Label (Wide Letterspaced Uppercase) */}
-                <div className="mt-3.5 sm:mt-4 flex flex-col items-center">
-                  <span
-                    className={`text-[10px] sm:text-xs font-black uppercase tracking-[0.20em] transition-colors leading-tight ${
-                      isSelected
-                        ? "text-[#541827]"
-                        : "text-[#141210] group-hover:text-[#541827]"
-                    }`}
-                  >
-                    {item.label}
-                  </span>
-                  {/* Subtle active / hover indicator dot */}
-                  <span
-                    className={`mt-1.5 w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                      isSelected
-                        ? "bg-[#541827] scale-100 opacity-100"
-                        : "bg-[#C28A42] scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100"
-                    }`}
-                  />
+                {/* Circular Antique Gold / Ivory Icon Coin */}
+                <div className="mt-3.5 sm:mt-4 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white border border-[#E5DDD0] shadow-xs flex items-center justify-center text-[#541827] group-hover:bg-[#541827] group-hover:text-white group-hover:border-[#541827] group-hover:scale-110 transition-all duration-300">
+                  {item.icon}
+                </div>
+
+                {/* Collection Title (Serif) */}
+                <h3 className="font-serif text-sm sm:text-base lg:text-[17px] font-bold text-[#141210] mt-1.5 group-hover:text-[#541827] transition-colors leading-tight truncate max-w-full px-1">
+                  {item.title}
+                </h3>
+
+                {/* Tagline */}
+                <p className="text-[10.5px] sm:text-xs text-stone-500 font-medium mt-0.5 line-clamp-1">
+                  {item.tagline}
+                </p>
+
+                {/* Interactive Link */}
+                <div className="inline-flex items-center justify-center gap-1 text-[10.5px] sm:text-xs font-bold text-[#541827] group-hover:text-[#43121e] transition-colors mt-1">
+                  <span>Explore</span>
+                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform text-[#C28A42]" />
                 </div>
               </div>
             );
           })}
         </div>
 
-        {/* 3. Mobile Swipe Dots */}
-        <div className="flex sm:hidden items-center justify-center gap-2 mt-4">
-          {collections.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setActiveSlide(i)}
-              className={`transition-all duration-300 rounded-full ${
-                activeSlide === i ? "w-6 h-1.5 bg-[#541827]" : "w-1.5 h-1.5 bg-[#E5DDD0]"
-              }`}
-              aria-label={`Slide ${i + 1}`}
+        {/* 3. Mobile Smooth Scroll Progress Bar & Dots */}
+        <div className="flex flex-col items-center justify-center gap-2 mt-4 sm:mt-8">
+          {/* Mobile Interactive Scroll Track */}
+          <div className="sm:hidden w-36 h-1 bg-[#E5DDD0] rounded-full overflow-hidden relative">
+            <div
+              className="h-full bg-[#541827] rounded-full transition-all duration-150"
+              style={{ width: `${Math.max(16, scrollProgress)}%` }}
             />
-          ))}
+          </div>
+
+          {/* Interactive Dots for direct jump */}
+          <div className="flex items-center justify-center gap-2">
+            {collections.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => scrollToSlide(i)}
+                className={`transition-all duration-300 rounded-full cursor-pointer ${
+                  activeSlide === i
+                    ? "w-6 h-2 bg-[#541827]"
+                    : "w-2 h-2 bg-[#E5DDD0] hover:bg-[#C28A42]"
+                }`}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
         </div>
+      </div>
+
+      {/* 4. Pure Vector SVG Heritage Wave Divider (100% Vector, Sharp at 4K) */}
+      <div className="relative z-10 w-full mt-8 sm:mt-14 overflow-hidden leading-none -mb-0.5">
+        <svg
+          viewBox="0 0 1440 90"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-8 sm:h-14 lg:h-18"
+          preserveAspectRatio="none"
+        >
+          {/* Deep Royal Burgundy Wave Fill */}
+          <path
+            d="M0,45 C280,80 440,15 720,48 C1000,80 1160,15 1440,48 L1440,90 L0,90 Z"
+            fill="#541827"
+          />
+          {/* Gleaming Antique Gold Metallic Crest Line */}
+          <path
+            d="M0,45 C280,80 440,15 720,48 C1000,80 1160,15 1440,48"
+            stroke="#C28A42"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
+        </svg>
+        <div className="h-2 sm:h-4 bg-[#541827] w-full" />
       </div>
     </section>
   );

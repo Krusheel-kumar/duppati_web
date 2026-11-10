@@ -10,8 +10,6 @@ import {
   MapPin,
   ChevronDown,
   ChevronRight,
-  User,
-  Layers,
   Phone,
   ShieldCheck,
   Truck,
@@ -75,36 +73,43 @@ export default function Navbar({
         {/* 1. DEDICATED MOBILE HEADER (Matches Reference Image Exactly) */}
         {/* ============================================================ */}
         <div className="block lg:hidden w-full">
-          {/* Top Row: Hamburger Menu (Left) | Centered Logo (Center) | Action Icons (Right) */}
-          <div className="px-3.5 h-14 sm:h-16 flex items-center justify-between relative border-b border-[#E5DDD0]/50">
+          {/* Top Row: Hamburger Menu (Left) | Centered Big Logo (Center) | Action Icons (Right) */}
+          <div className="px-3 sm:px-4 h-16 sm:h-18 flex items-center justify-between relative border-b border-[#E5DDD0]/50">
             {/* Left: Clean Hamburger Icon Button */}
-            <div className="flex items-center shrink-0 w-24 justify-start">
+            <div className="flex items-center shrink-0 w-14 justify-start">
               <button
                 onClick={() => setMobileMenuOpen(true)}
-                className="p-1 -ml-1 text-[#141210] hover:text-[#541827] cursor-pointer transition active:scale-95"
+                className="p-1.5 -ml-1 text-[#141210] hover:text-[#541827] rounded-lg active:bg-stone-100 cursor-pointer transition active:scale-95"
                 aria-label="Open mobile menu"
               >
                 <Menu className="w-6 h-6 stroke-[2]" />
               </button>
             </div>
 
-            {/* Center: Brand Logo (Centered perfectly) */}
+            {/* Center: Brand Logo (Significantly Bigger, Crystal Clear, Premium Shimmer) */}
             <div
               onClick={() => {
                 onSelectCategory("all");
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center cursor-pointer py-1"
+              className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center cursor-pointer py-1 group select-none z-10"
             >
-              <img
-                src="/assets/duppatilogo.png"
-                alt="DUPPATI Cozy Home"
-                className="h-9 sm:h-11 w-auto max-w-[170px] sm:max-w-[200px] object-contain select-none drop-shadow-[0_1px_3px_rgba(0,0,0,0.05)]"
-              />
+              <div className="relative flex items-center justify-center">
+                <img
+                  src="/assets/duppati_logo_clean.png"
+                  alt="DUPPATI Cozy Home"
+                  className="h-14 sm:h-16 w-auto max-w-[220px] sm:max-w-[270px] object-contain transition-all duration-300 group-hover:scale-103 drop-shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
+                />
+
+                {/* Subtle Periodic Luxury Light Shimmer Sweep */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-xl z-20">
+                  <div className="w-1/2 h-full bg-gradient-to-r from-transparent via-white/45 to-transparent animate-brand-gleam" />
+                </div>
+              </div>
             </div>
 
             {/* Right: Search, Wishlist Heart, Shopping Bag with red count badge */}
-            <div className="flex items-center justify-end gap-3 sm:gap-4 shrink-0 w-24">
+            <div className="flex items-center justify-end gap-2.5 sm:gap-3.5 shrink-0 w-24 sm:w-28">
               {/* Search */}
               <button
                 onClick={() => {
@@ -114,7 +119,7 @@ export default function Navbar({
                     setIsSearchModalOpen(true);
                   }
                 }}
-                className="p-1 text-[#141210] hover:text-[#541827] cursor-pointer transition active:scale-95"
+                className="p-1.5 text-[#141210] hover:text-[#541827] rounded-lg active:bg-stone-100 cursor-pointer transition active:scale-95"
                 aria-label="Search Catalog"
               >
                 <Search className="w-5 h-5 stroke-[2]" />
@@ -127,7 +132,7 @@ export default function Navbar({
                   const el = document.getElementById("department-showcases");
                   if (el) el.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="p-1 text-[#141210] hover:text-[#541827] cursor-pointer transition active:scale-95 relative"
+                className="p-1.5 text-[#141210] hover:text-[#541827] rounded-lg active:bg-stone-100 cursor-pointer transition active:scale-95 relative"
                 aria-label="Wishlist"
               >
                 <Heart className="w-5 h-5 stroke-[2]" />
@@ -141,12 +146,12 @@ export default function Navbar({
               {/* Bag with Count Badge */}
               <button
                 onClick={openCart}
-                className="p-1 text-[#141210] hover:text-[#541827] cursor-pointer transition active:scale-95 relative"
+                className="p-1.5 text-[#141210] hover:text-[#541827] rounded-lg active:bg-stone-100 cursor-pointer transition active:scale-95 relative"
                 aria-label="Shopping Bag"
               >
                 <ShoppingBag className="w-5 h-5 stroke-[2]" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-[#85182a] text-white text-[9px] font-black flex items-center justify-center shadow-xs">
+                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#85182a] text-white text-[9px] font-black flex items-center justify-center shadow-xs">
                     {cartCount}
                   </span>
                 )}
@@ -170,103 +175,130 @@ export default function Navbar({
         </div>
 
         {/* ============================================================ */}
-        {/* 2. DEDICATED DESKTOP HEADER (Full-Width Luxury Bar)           */}
+        {/* 2. DEDICATED DESKTOP HEADER (Bigger Logo + Centered Quick Links + Visible Cart) */}
         {/* ============================================================ */}
-        <div className="hidden lg:block w-full px-6 lg:px-8 xl:px-12">
-          <div className="flex items-center justify-between h-20 lg:h-24 xl:h-26 gap-4 xl:gap-6">
-            {/* 1. LEFT: Brand Logo */}
-            <div className="flex items-center shrink-0">
+        <div className="hidden lg:block w-full px-6 lg:px-8 xl:px-12 max-w-[1800px] mx-auto">
+          <div className="relative flex items-center justify-between h-22 lg:h-25 w-full">
+            {/* 1. LEFT: Brand Logo (Significantly Bigger, Premium, Clean Presentation) */}
+            <div className="flex items-center shrink-0 z-10">
               <div
                 onClick={() => {
                   onSelectCategory("all");
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
-                className="flex items-center cursor-pointer py-1 group pr-4"
+                className="relative flex items-center cursor-pointer py-1 group select-none"
               >
                 <img
-                  src="/assets/duppatilogo.png"
-                  alt="DUPPAT Cozy Homezzz"
-                  className="h-16 lg:h-20 xl:h-22 w-auto max-w-[280px] lg:max-w-[340px] xl:max-w-[380px] object-contain transition-all duration-300 group-hover:scale-104 drop-shadow-[0_2px_6px_rgba(0,0,0,0.06)]"
+                  src="/assets/duppati_logo_clean.png"
+                  alt="DUPPATI Cozy Home"
+                  className="h-16 lg:h-18 xl:h-20 w-auto max-w-[300px] lg:max-w-[360px] xl:max-w-[400px] object-contain transition-all duration-300 group-hover:scale-103 drop-shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
                 />
-                <div className="hidden 2xl:block h-10 w-[1px] bg-[#E5DDD0] ml-4 shrink-0" />
+
+                {/* Subtle Periodic Luxury Light Shimmer Sweep */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-xl z-20">
+                  <div className="w-1/2 h-full bg-gradient-to-r from-transparent via-white/50 to-transparent animate-brand-gleam" />
+                </div>
               </div>
             </div>
 
-            {/* 2. CENTER: Curated Collections Links */}
-            <nav className="flex items-center gap-3 xl:gap-5 2xl:gap-7 text-sm xl:text-[15px] 2xl:text-[16px] tracking-wide uppercase font-extrabold">
-              {/* All Collections Dropdown Trigger */}
-              <div className="relative" onMouseEnter={() => setIsMegaMenuOpen(true)}>
-                <button
-                  onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#541827] hover:bg-[#43121e] text-white transition-all font-black cursor-pointer shadow-xs whitespace-nowrap text-xs xl:text-sm tracking-wide border border-[#C28A42]/40"
-                >
-                  <Layers className="w-4 h-4 text-[#C28A42]" />
-                  <span>All Collections</span>
-                  <ChevronDown
-                    className={`w-3.5 h-3.5 text-[#C28A42] transition-transform duration-200 ${
-                      isMegaMenuOpen ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-              </div>
+            {/* 2. MIDDLE: Exactly 5 Quick Links (Centered in the Mathematical Middle of Navbar) */}
+            <nav className="absolute left-1/2 -translate-x-1/2 flex items-center gap-5 lg:gap-7 xl:gap-8 text-xs lg:text-[13px] tracking-[0.16em] uppercase font-bold text-[#141210] z-10">
+              {/* 1. Bedding */}
+              <button
+                onClick={() => {
+                  onSelectCategory("bed_sanctuary");
+                  const el = document.getElementById("department-showcases");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
+                className={`relative py-1 transition-all cursor-pointer whitespace-nowrap hover:text-[#541827] ${
+                  activeCategory === "bed_sanctuary"
+                    ? "text-[#541827] font-black"
+                    : "text-[#141210]"
+                }`}
+              >
+                <span>Bedding</span>
+                {activeCategory === "bed_sanctuary" && (
+                  <span className="absolute -bottom-1 inset-x-0 h-[2.5px] bg-[#541827] rounded-full" />
+                )}
+              </button>
 
-              {/* 6 Direct Collection Links */}
-              <div className="flex items-center gap-3 xl:gap-5 2xl:gap-6">
-                {DEPARTMENTS.map((dept) => {
-                  const isActive = activeCategory === dept.id;
-                  return (
-                    <button
-                      key={dept.id}
-                      onClick={() => {
-                        onSelectCategory(dept.id);
-                        setIsMegaMenuOpen(false);
-                        const el = document.getElementById("department-showcases");
-                        if (el) el.scrollIntoView({ behavior: "smooth" });
-                      }}
-                      className={`relative py-1 px-1 transition-all cursor-pointer whitespace-nowrap ${
-                        isActive
-                          ? "text-[#541827] font-black"
-                          : "text-[#141210] hover:text-[#541827] font-extrabold hover:font-black"
-                      }`}
-                    >
-                      <span>{dept.navLabel}</span>
-                      {isActive ? (
-                        <span className="absolute -bottom-1 inset-x-0 h-[3px] bg-[#541827] rounded-full" />
-                      ) : (
-                        <span className="absolute -bottom-1 inset-x-0 h-[3px] bg-transparent hover:bg-[#541827]/35 rounded-full transition-colors" />
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
+              {/* 2. Quilts */}
+              <button
+                onClick={() => {
+                  onSelectCategory("bed_sanctuary", "Bed Covers");
+                  const el = document.getElementById("department-showcases");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="relative py-1 transition-all cursor-pointer whitespace-nowrap text-[#141210] hover:text-[#541827]"
+              >
+                <span>Quilts</span>
+              </button>
+
+              {/* 3. Living */}
+              <button
+                onClick={() => {
+                  onSelectCategory("living_room");
+                  const el = document.getElementById("department-showcases");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
+                className={`relative py-1 transition-all cursor-pointer whitespace-nowrap hover:text-[#541827] ${
+                  activeCategory === "living_room"
+                    ? "text-[#541827] font-black"
+                    : "text-[#141210]"
+                }`}
+              >
+                <span>Living</span>
+                {activeCategory === "living_room" && (
+                  <span className="absolute -bottom-1 inset-x-0 h-[2.5px] bg-[#541827] rounded-full" />
+                )}
+              </button>
+
+              {/* 4. Kids & Baby */}
+              <button
+                onClick={() => {
+                  onSelectCategory("kids_atelier");
+                  const el = document.getElementById("department-showcases");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
+                className={`relative py-1 transition-all cursor-pointer whitespace-nowrap hover:text-[#541827] ${
+                  activeCategory === "kids_atelier"
+                    ? "text-[#541827] font-black"
+                    : "text-[#141210]"
+                }`}
+              >
+                <span>Kids & Baby</span>
+                {activeCategory === "kids_atelier" && (
+                  <span className="absolute -bottom-1 inset-x-0 h-[2.5px] bg-[#541827] rounded-full" />
+                )}
+              </button>
+
+              {/* 5. Bestsellers */}
+              <button
+                onClick={() => {
+                  onSelectCategory("all");
+                  const el = document.getElementById("department-showcases");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="relative py-1 transition-all cursor-pointer whitespace-nowrap text-[#541827] font-extrabold flex items-center gap-1.5 hover:text-[#43121e]"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#C28A42] animate-pulse" />
+                <span>Bestsellers</span>
+              </button>
             </nav>
 
-            {/* 3. RIGHT: Search, City, Wishlist, Account, Bag */}
-            <div className="flex items-center justify-end gap-2.5 xl:gap-3.5 shrink-0">
+            {/* 3. RIGHT: Search, Wishlist, and Prominently Pinned Shopping Bag */}
+            <div className="flex items-center justify-end gap-2.5 lg:gap-3.5 shrink-0 ml-auto z-10">
               {/* Desktop Search Bar */}
-              <div className="flex items-center">
-                <div className="relative">
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => onSearchChange(e.target.value)}
-                    placeholder="Search pure cotton..."
-                    className="w-36 lg:w-44 xl:w-56 2xl:w-64 focus:w-72 pl-4 pr-9 py-2 text-xs xl:text-sm font-bold rounded-full border border-[#E5DDD0] bg-white text-[#141210] placeholder:text-stone-500 placeholder:font-medium focus:outline-none focus:border-[#541827] focus:ring-2 focus:ring-[#541827]/15 transition-all shadow-2xs"
-                  />
-                  <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#541827] pointer-events-none" />
-                </div>
+              <div className="relative">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => onSearchChange(e.target.value)}
+                  placeholder="Search pure cotton..."
+                  className="w-32 lg:w-40 xl:w-48 pl-3.5 pr-8 py-2 text-xs font-semibold rounded-full border border-[#E5DDD0] bg-white text-[#141210] placeholder:text-stone-400 focus:outline-none focus:border-[#541827] focus:ring-1 focus:ring-[#541827]/20 transition-all shadow-2xs"
+                />
+                <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#541827] pointer-events-none" />
               </div>
-
-              {/* Desktop City Selector Pill */}
-              <button
-                onClick={onOpenCityPicker}
-                className="flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-[#E5DDD0] bg-white hover:border-[#541827] text-xs xl:text-sm font-bold text-[#141210] transition shadow-2xs cursor-pointer shrink-0"
-                title="Deliver to city"
-              >
-                <MapPin className="w-4 h-4 text-[#C28A42] shrink-0" />
-                <span className="max-w-[95px] truncate">{selectedCity}</span>
-                <ChevronDown className="w-3.5 h-3.5 text-stone-500 shrink-0" />
-              </button>
 
               {/* Wishlist Button */}
               <button
@@ -275,48 +307,34 @@ export default function Navbar({
                   const el = document.getElementById("department-showcases");
                   if (el) el.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="w-10 h-10 lg:w-11 lg:h-11 rounded-full border border-[#E5DDD0] hover:border-[#541827] hover:bg-white bg-white/90 flex items-center justify-center text-[#141210] hover:text-[#541827] transition shadow-2xs relative cursor-pointer shrink-0 active:scale-95"
+                className="w-9 h-9 lg:w-10 lg:h-10 rounded-full border border-[#E5DDD0] hover:border-[#541827] bg-white flex items-center justify-center text-[#141210] hover:text-[#541827] transition shadow-2xs relative cursor-pointer shrink-0 active:scale-95"
                 aria-label="Wishlist"
                 title="Wishlist"
               >
-                <Heart className="w-5 h-5 stroke-[2.2]" />
+                <Heart className="w-4.5 h-4.5 stroke-[2]" />
                 {wishlist.length > 0 && (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[#541827] text-white text-[10px] font-black flex items-center justify-center border-2 border-[#FAF7F2]">
+                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#541827] text-white text-[9px] font-black flex items-center justify-center border-2 border-white">
                     {wishlist.length}
                   </span>
                 )}
               </button>
 
-              {/* Account */}
-              <button
-                onClick={onOpenCityPicker}
-                className="w-10 h-10 lg:w-11 lg:h-11 rounded-full border border-[#E5DDD0] hover:border-[#541827] hover:bg-white bg-white/90 flex items-center justify-center text-[#141210] hover:text-[#541827] transition shadow-2xs cursor-pointer shrink-0"
-                aria-label="User Account"
-                title="Account & Delivery Pin"
-              >
-                <User className="w-5 h-5 stroke-[2.2]" />
-              </button>
-
-              {/* Shopping Bag Trigger */}
+              {/* VISIBLE & ANCHORED SHOPPING BAG */}
               <button
                 onClick={openCart}
-                className="flex items-center gap-2 px-4 lg:px-5 py-2.5 rounded-full bg-[#541827] text-white hover:bg-[#43121e] border border-[#C28A42]/60 shadow-xs hover:shadow-md transition-all cursor-pointer shrink-0 active:scale-95"
+                className="flex items-center gap-2 px-4 py-2 lg:py-2.5 rounded-full bg-[#541827] text-white hover:bg-[#43121e] border border-[#C28A42]/60 shadow-xs hover:shadow-md transition-all cursor-pointer shrink-0 active:scale-95"
                 aria-label="Shopping Bag"
               >
                 <div className="relative">
-                  <ShoppingBag className="w-4.5 h-4.5 text-[#C28A42] stroke-[2.4]" />
+                  <ShoppingBag className="w-4 h-4 text-[#C28A42] stroke-[2.4]" />
                   {cartCount > 0 && (
-                    <span className="absolute -top-2 -right-2.5 w-4 h-4 rounded-full bg-[#C28A42] text-[#29251F] text-[9px] font-black flex items-center justify-center border-2 border-[#541827]">
+                    <span className="absolute -top-1.5 -right-2 w-4 h-4 rounded-full bg-[#C28A42] text-[#29251F] text-[9px] font-black flex items-center justify-center border border-[#541827]">
                       {cartCount}
                     </span>
                   )}
                 </div>
-                <span className="text-xs sm:text-sm lg:text-base font-black tracking-wide font-mono">
-                  {cartCount > 0 ? (
-                    `₹${total.toLocaleString("en-IN")}`
-                  ) : (
-                    <span className="font-sans font-bold">Bag</span>
-                  )}
+                <span className="text-xs lg:text-sm font-bold tracking-wide font-mono whitespace-nowrap">
+                  {cartCount > 0 ? `₹${total.toLocaleString("en-IN")}` : "Bag"}
                 </span>
               </button>
             </div>
@@ -361,9 +379,9 @@ export default function Navbar({
               {/* 1. Drawer Header */}
               <div className="p-4 bg-white border-b border-[#E5DDD0] flex items-center justify-between shrink-0 shadow-2xs">
                 <img
-                  src="/assets/duppatilogo.png"
-                  alt="DUPPAT Cozy Homezzz"
-                  className="h-10 w-auto object-contain"
+                  src="/assets/duppati_logo_clean.png"
+                  alt="DUPPATI"
+                  className="h-11 w-auto object-contain"
                 />
                 <button
                   onClick={() => setMobileMenuOpen(false)}

@@ -141,8 +141,8 @@ export default function RazorpayModal() {
               <div className="bg-[#541827] text-white px-6 py-4 flex items-center justify-between border-b border-[#43121e]">
                 <div className="flex items-center gap-3">
                   <img
-                    src="/assets/duppatilogo.png"
-                    alt="DUPPAT Logo"
+                    src="/assets/duppati_logo_clean.png"
+                    alt="DUPPATI"
                     className="h-8 sm:h-9 w-auto object-contain bg-white/95 p-1 rounded-sm"
                   />
                   <div>

@@ -78,8 +78,8 @@ export default function Footer() {
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center">
               <img
-                src="/assets/duppatilogo.png"
-                alt="DUPPAT Cozy Homezzz"
+                src="/assets/duppati_logo_clean.png"
+                alt="DUPPATI"
                 className="h-12 sm:h-16 w-auto object-contain bg-[#F7F1E8] px-3.5 py-1.5 rounded-md shadow-xs"
               />
             </div>
