@@ -73,43 +73,45 @@ export default function Navbar({
         {/* 1. DEDICATED MOBILE HEADER (Matches Reference Image Exactly) */}
         {/* ============================================================ */}
         <div className="block lg:hidden w-full">
-          {/* Top Row: Hamburger Menu (Left) | Centered Big Logo (Center) | Action Icons (Right) */}
-          <div className="px-3 sm:px-4 h-16 sm:h-18 flex items-center justify-between relative border-b border-[#E5DDD0]/50">
+          {/* Top Row: Balanced 3-column layout (Hamburger Left | Centered Logo | Actions Right) */}
+          <div className="px-3 sm:px-4 h-16 sm:h-18 grid grid-cols-[auto_1fr_auto] items-center border-b border-[#E5DDD0]/50 relative">
             {/* Left: Clean Hamburger Icon Button */}
-            <div className="flex items-center shrink-0 w-14 justify-start">
+            <div className="flex items-center justify-start shrink-0">
               <button
                 onClick={() => setMobileMenuOpen(true)}
-                className="p-1.5 -ml-1 text-[#141210] hover:text-[#541827] rounded-lg active:bg-stone-100 cursor-pointer transition active:scale-95"
+                className="w-9 h-9 flex items-center justify-center text-[#141210] hover:text-[#541827] rounded-lg active:bg-stone-100 cursor-pointer transition active:scale-95"
                 aria-label="Open mobile menu"
               >
-                <Menu className="w-6 h-6 stroke-[2]" />
+                <Menu className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2]" />
               </button>
             </div>
 
-            {/* Center: Brand Logo (Significantly Bigger, Crystal Clear, Premium Shimmer) */}
-            <div
-              onClick={() => {
-                onSelectCategory("all");
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
-              className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center cursor-pointer py-1 group select-none z-10"
-            >
-              <div className="relative flex items-center justify-center">
-                <img
-                  src="/assets/duppati_logo_clean.png"
-                  alt="DUPPATI Cozy Home"
-                  className="h-14 sm:h-16 w-auto max-w-[220px] sm:max-w-[270px] object-contain transition-all duration-300 group-hover:scale-103 drop-shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
-                />
+            {/* Center: Brand Logo (Comfortably Centered with Generous Margins & No Overlap) */}
+            <div className="flex items-center justify-center px-2 overflow-hidden">
+              <div
+                onClick={() => {
+                  onSelectCategory("all");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className="cursor-pointer py-1 group select-none flex items-center justify-center max-w-full"
+              >
+                <div className="relative flex items-center justify-center">
+                  <img
+                    src="/assets/duppati_logo_clean.png"
+                    alt="DUPPATI Cozy Home"
+                    className="h-11 sm:h-13 w-auto max-w-[145px] sm:max-w-[180px] object-contain transition-all duration-300 group-hover:scale-103 drop-shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
+                  />
 
-                {/* Subtle Periodic Luxury Light Shimmer Sweep */}
-                <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-xl z-20">
-                  <div className="w-1/2 h-full bg-gradient-to-r from-transparent via-white/45 to-transparent animate-brand-gleam" />
+                  {/* Subtle Periodic Luxury Light Shimmer Sweep */}
+                  <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-xl z-20">
+                    <div className="w-1/2 h-full bg-gradient-to-r from-transparent via-white/45 to-transparent animate-brand-gleam" />
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Right: Search, Wishlist Heart, Shopping Bag with red count badge */}
-            <div className="flex items-center justify-end gap-2.5 sm:gap-3.5 shrink-0 w-24 sm:w-28">
+            {/* Right: Search, Wishlist Heart, Shopping Bag (Comfortably Spaced with Clear Separation from Logo) */}
+            <div className="flex items-center justify-end gap-1 sm:gap-2 shrink-0">
               {/* Search */}
               <button
                 onClick={() => {
@@ -119,10 +121,10 @@ export default function Navbar({
                     setIsSearchModalOpen(true);
                   }
                 }}
-                className="p-1.5 text-[#141210] hover:text-[#541827] rounded-lg active:bg-stone-100 cursor-pointer transition active:scale-95"
+                className="w-9 h-9 flex items-center justify-center text-[#141210] hover:text-[#541827] rounded-lg active:bg-stone-100 cursor-pointer transition active:scale-95"
                 aria-label="Search Catalog"
               >
-                <Search className="w-5 h-5 stroke-[2]" />
+                <Search className="w-4.5 h-4.5 sm:w-5 sm:h-5 stroke-[2]" />
               </button>
 
               {/* Wishlist */}
@@ -132,12 +134,12 @@ export default function Navbar({
                   const el = document.getElementById("department-showcases");
                   if (el) el.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="p-1.5 text-[#141210] hover:text-[#541827] rounded-lg active:bg-stone-100 cursor-pointer transition active:scale-95 relative"
+                className="w-9 h-9 flex items-center justify-center text-[#141210] hover:text-[#541827] rounded-lg active:bg-stone-100 cursor-pointer transition active:scale-95 relative"
                 aria-label="Wishlist"
               >
-                <Heart className="w-5 h-5 stroke-[2]" />
+                <Heart className="w-4.5 h-4.5 sm:w-5 sm:h-5 stroke-[2]" />
                 {wishlist.length > 0 && (
-                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#85182a] text-white text-[9px] font-bold flex items-center justify-center shadow-xs">
+                  <span className="absolute top-1 right-1 w-3.5 h-3.5 rounded-full bg-[#85182a] text-white text-[8px] font-bold flex items-center justify-center shadow-xs">
                     {wishlist.length}
                   </span>
                 )}
@@ -146,12 +148,12 @@ export default function Navbar({
               {/* Bag with Count Badge */}
               <button
                 onClick={openCart}
-                className="p-1.5 text-[#141210] hover:text-[#541827] rounded-lg active:bg-stone-100 cursor-pointer transition active:scale-95 relative"
+                className="w-9 h-9 flex items-center justify-center text-[#141210] hover:text-[#541827] rounded-lg active:bg-stone-100 cursor-pointer transition active:scale-95 relative"
                 aria-label="Shopping Bag"
               >
-                <ShoppingBag className="w-5 h-5 stroke-[2]" />
+                <ShoppingBag className="w-4.5 h-4.5 sm:w-5 sm:h-5 stroke-[2]" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#85182a] text-white text-[9px] font-black flex items-center justify-center shadow-xs">
+                  <span className="absolute top-1 right-1 w-3.5 h-3.5 rounded-full bg-[#85182a] text-white text-[8px] font-black flex items-center justify-center shadow-xs">
                     {cartCount}
                   </span>
                 )}
