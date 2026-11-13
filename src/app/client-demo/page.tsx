@@ -122,7 +122,7 @@ export default function ClientDemoPage() {
   }, [monthlyOrders, averageOrderValue, shippingModel, codSharePercent, selectedGateway]);
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] text-[#29251F] font-sans antialiased selection:bg-[#541827] selection:text-white pb-20">
+    <div className="min-h-screen bg-[#FAF7F2] text-[#29251F] font-sans antialiased selection:bg-[#541827] selection:text-white pb-36">
       {/* 1. Top Executive Navigation Banner */}
       <header className="sticky top-0 z-50 bg-[#1E050D] text-white border-b border-[#3D0C1A] shadow-md">
         <div className="max-w-[1700px] mx-auto px-4 sm:px-8 py-3 flex items-center justify-between">

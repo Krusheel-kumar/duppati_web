@@ -22,8 +22,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
-      <body className="min-h-full flex flex-col bg-[#F7F1E8] text-[#29251F] font-sans antialiased">
+    <html lang="en" className="antialiased">
+      <body className="min-h-screen flex flex-col bg-[#F7F1E8] text-[#29251F] font-sans antialiased">
         <CartProvider>
           <SmoothScroll>{children}</SmoothScroll>
         </CartProvider>
