@@ -124,7 +124,7 @@ export default function CustomerJourneySimulator() {
         </div>
 
         {/* 6-Stage Visual Stepper Tabs */}
-        <div className="flex items-center justify-between gap-1 overflow-x-auto scrollbar-none pt-4 text-left">
+        <div className="flex items-center justify-start xl:justify-between gap-2 overflow-x-auto scrollbar-none pt-4 text-left">
           {[
             { num: 1, label: "Add to Bag", desc: "Guest Browsing" },
             { num: 2, label: "WhatsApp OTP", desc: "Mobile Sign Up" },

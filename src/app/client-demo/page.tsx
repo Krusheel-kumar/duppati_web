@@ -207,34 +207,36 @@ export default function ClientDemoPage() {
 
       {/* 3. Navigation Tab Bar */}
       <div className="sticky top-[53px] z-40 bg-white/95 backdrop-blur-md border-b border-[#E5DDD0] shadow-2xs">
-        <div className="max-w-6xl mx-auto px-4 flex items-center justify-start sm:justify-center gap-2 overflow-x-auto scrollbar-none py-2.5">
-          {[
-            { id: "simulator", label: "Customer Journey Flow", icon: Smartphone },
-            { id: "admin_simulator", label: "Store Owner / Admin Flow", icon: Store },
-            { id: "returns", label: "Returns, Refunds & COD RTO", icon: RotateCcw },
-            { id: "calculator", label: "Interactive Cost Calculator", icon: Calculator },
-            { id: "payments", label: "Payment Gateways (Razorpay)", icon: CreditCard },
-            { id: "shipping", label: "Shiprocket & Delivery Models", icon: Truck },
-            { id: "messaging", label: "WhatsApp & SMS OTP", icon: MessageSquare },
-            { id: "production", label: "Production Launch Checklist", icon: PackageCheck },
-          ].map((tab) => {
-            const Icon = tab.icon;
-            const isActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
-                className={`px-3.5 py-2 rounded-full text-xs font-semibold tracking-wide transition-all shrink-0 flex items-center gap-1.5 cursor-pointer ${
-                  isActive
-                    ? "bg-[#541827] text-white shadow-sm ring-1 ring-[#541827]"
-                    : "bg-[#FAF7F2] text-stone-700 hover:bg-stone-200/80 border border-[#E5DDD0]"
-                }`}
-              >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? "text-[#E6C687]" : "text-stone-500"}`} />
-                <span>{tab.label}</span>
-              </button>
-            );
-          })}
+        <div className="max-w-[1700px] mx-auto px-4 sm:px-8 py-2.5 overflow-x-auto scrollbar-none flex items-center justify-start xl:justify-center">
+          <div className="flex items-center gap-2 shrink-0">
+            {[
+              { id: "simulator", label: "1. Customer Journey", icon: Smartphone },
+              { id: "admin_simulator", label: "2. Store Owner Flow", icon: Store },
+              { id: "returns", label: "3. Returns & Refunds", icon: RotateCcw },
+              { id: "calculator", label: "Cost Calculator", icon: Calculator },
+              { id: "payments", label: "Razorpay PG (2%)", icon: CreditCard },
+              { id: "shipping", label: "Shiprocket Logistics", icon: Truck },
+              { id: "messaging", label: "WhatsApp & SMS", icon: MessageSquare },
+              { id: "production", label: "Go-Live Checklist", icon: PackageCheck },
+            ].map((tab) => {
+              const Icon = tab.icon;
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as any)}
+                  className={`px-3.5 py-2 rounded-full text-xs font-semibold tracking-wide transition-all shrink-0 whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
+                    isActive
+                      ? "bg-[#541827] text-white shadow-sm ring-1 ring-[#541827]"
+                      : "bg-[#FAF7F2] text-stone-700 hover:bg-stone-200/80 border border-[#E5DDD0]"
+                  }`}
+                >
+                  <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? "text-[#E6C687]" : "text-stone-500"}`} />
+                  <span>{tab.label}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
 
@@ -256,7 +258,7 @@ export default function ClientDemoPage() {
             <div className="flex items-center gap-1.5 w-full md:w-auto overflow-x-auto scrollbar-none">
               <button
                 onClick={() => setActiveTab("simulator")}
-                className={`flex-1 sm:flex-initial px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition cursor-pointer shrink-0 ${
+                className={`flex-1 sm:flex-initial px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition cursor-pointer shrink-0 whitespace-nowrap ${
                   activeTab === "simulator"
                     ? "bg-[#541827] text-white shadow-xs"
                     : "bg-stone-100 hover:bg-stone-200 text-stone-700"
@@ -268,7 +270,7 @@ export default function ClientDemoPage() {
 
               <button
                 onClick={() => setActiveTab("admin_simulator")}
-                className={`flex-1 sm:flex-initial px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition cursor-pointer shrink-0 ${
+                className={`flex-1 sm:flex-initial px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition cursor-pointer shrink-0 whitespace-nowrap ${
                   activeTab === "admin_simulator"
                     ? "bg-[#541827] text-white shadow-xs"
                     : "bg-stone-100 hover:bg-stone-200 text-stone-700"
@@ -280,7 +282,7 @@ export default function ClientDemoPage() {
 
               <button
                 onClick={() => setActiveTab("returns")}
-                className={`flex-1 sm:flex-initial px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition cursor-pointer shrink-0 ${
+                className={`flex-1 sm:flex-initial px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition cursor-pointer shrink-0 whitespace-nowrap ${
                   activeTab === "returns"
                     ? "bg-[#541827] text-white shadow-xs"
                     : "bg-stone-100 hover:bg-stone-200 text-stone-700"
