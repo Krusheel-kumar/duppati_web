@@ -27,13 +27,15 @@ import {
   Scale,
   Smartphone,
   Store,
+  RotateCcw,
 } from "lucide-react";
 import CustomerJourneySimulator from "@/components/demo/CustomerJourneySimulator";
 import OwnerJourneySimulator from "@/components/demo/OwnerJourneySimulator";
+import ReturnsRefundSimulator from "@/components/demo/ReturnsRefundSimulator";
 
 export default function ClientDemoPage() {
   const [activeTab, setActiveTab] = useState<
-    "simulator" | "admin_simulator" | "calculator" | "payments" | "shipping" | "messaging" | "production"
+    "simulator" | "admin_simulator" | "returns" | "calculator" | "payments" | "shipping" | "messaging" | "production"
   >("simulator");
 
   // Interactive Calculator State
@@ -209,6 +211,7 @@ export default function ClientDemoPage() {
           {[
             { id: "simulator", label: "Customer Journey Flow", icon: Smartphone },
             { id: "admin_simulator", label: "Store Owner / Admin Flow", icon: Store },
+            { id: "returns", label: "Returns, Refunds & COD RTO", icon: RotateCcw },
             { id: "calculator", label: "Interactive Cost Calculator", icon: Calculator },
             { id: "payments", label: "Payment Gateways (Razorpay)", icon: CreditCard },
             { id: "shipping", label: "Shiprocket & Delivery Models", icon: Truck },
@@ -237,23 +240,23 @@ export default function ClientDemoPage() {
 
       {/* 4. Tab Content Area */}
       <main className="max-w-6xl mx-auto px-4 sm:px-8 pt-8">
-        {/* Quick Dual-Perspective Switcher for Client Presentations */}
-        {(activeTab === "simulator" || activeTab === "admin_simulator") && (
-          <div className="mb-6 p-2 rounded-2xl bg-white border border-[#E5DDD0] shadow-2xs flex flex-col sm:flex-row items-center justify-between gap-3">
+        {/* Quick Multi-Perspective Switcher for Client Presentations */}
+        {(activeTab === "simulator" || activeTab === "admin_simulator" || activeTab === "returns") && (
+          <div className="mb-6 p-2 rounded-2xl bg-white border border-[#E5DDD0] shadow-2xs flex flex-col md:flex-row items-center justify-between gap-3">
             <div className="flex items-center gap-2 pl-2 text-xs text-stone-600">
               <span className="font-serif font-bold text-[#541827]">Interactive Demo View:</span>
               <span className="hidden sm:inline text-stone-400">•</span>
               <span className="text-stone-500">
-                {activeTab === "simulator"
-                  ? "Currently viewing: Shopper / Customer front-end experience"
-                  : "Currently viewing: Store Owner / Admin back-office fulfillment operations"}
+                {activeTab === "simulator" && "Currently viewing: Shopper front-end checkout & OTP journey"}
+                {activeTab === "admin_simulator" && "Currently viewing: Store Owner & Admin back-office fulfillment"}
+                {activeTab === "returns" && "Currently viewing: Returns, Razorpay instant refunds & COD RTO"}
               </span>
             </div>
 
-            <div className="flex items-center gap-1.5 w-full sm:w-auto">
+            <div className="flex items-center gap-1.5 w-full md:w-auto overflow-x-auto scrollbar-none">
               <button
                 onClick={() => setActiveTab("simulator")}
-                className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition cursor-pointer ${
+                className={`flex-1 sm:flex-initial px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition cursor-pointer shrink-0 ${
                   activeTab === "simulator"
                     ? "bg-[#541827] text-white shadow-xs"
                     : "bg-stone-100 hover:bg-stone-200 text-stone-700"
@@ -265,14 +268,26 @@ export default function ClientDemoPage() {
 
               <button
                 onClick={() => setActiveTab("admin_simulator")}
-                className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition cursor-pointer ${
+                className={`flex-1 sm:flex-initial px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition cursor-pointer shrink-0 ${
                   activeTab === "admin_simulator"
                     ? "bg-[#541827] text-white shadow-xs"
                     : "bg-stone-100 hover:bg-stone-200 text-stone-700"
                 }`}
               >
                 <Store className="w-3.5 h-3.5 text-[#E6C687]" />
-                <span>2. Store Owner / Admin Flow</span>
+                <span>2. Store Owner Flow</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab("returns")}
+                className={`flex-1 sm:flex-initial px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition cursor-pointer shrink-0 ${
+                  activeTab === "returns"
+                    ? "bg-[#541827] text-white shadow-xs"
+                    : "bg-stone-100 hover:bg-stone-200 text-stone-700"
+                }`}
+              >
+                <RotateCcw className="w-3.5 h-3.5 text-[#E6C687]" />
+                <span>3. Returns & Refunds Flow</span>
               </button>
             </div>
           </div>
@@ -293,6 +308,15 @@ export default function ClientDemoPage() {
         {activeTab === "admin_simulator" && (
           <div className="space-y-8 animate-fade-in">
             <OwnerJourneySimulator />
+          </div>
+        )}
+
+        {/* ========================================================== */}
+        {/* TAB 0C: RETURNS, REFUNDS & COD RTO SIMULATOR               */}
+        {/* ========================================================== */}
+        {activeTab === "returns" && (
+          <div className="space-y-8 animate-fade-in">
+            <ReturnsRefundSimulator />
           </div>
         )}
 
