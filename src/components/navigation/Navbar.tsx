@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import {
   ShoppingBag,
   Heart,
@@ -13,6 +14,8 @@ import {
   Phone,
   ShieldCheck,
   Truck,
+  ArrowRight,
+  Sparkles,
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { DEPARTMENTS } from "@/data/products";
@@ -69,6 +72,28 @@ export default function Navbar({
     <>
       {/* Sticky Main Header Container */}
       <header className="sticky top-0 z-40 bg-[#FAF7F2]/98 backdrop-blur-md border-b border-[#E5DDD0] w-full shadow-2xs">
+        {/* Top Atelier Announcement & Client Demo Access Strip */}
+        <div className="bg-[#1E050D] text-white text-[10px] sm:text-[11px] py-1.5 px-3 sm:px-6 border-b border-[#3D0C1A]">
+          <div className="max-w-[1800px] mx-auto w-full flex items-center justify-between gap-2">
+            <div className="flex items-center gap-1.5 text-stone-300 font-light truncate">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E6C687] animate-pulse shrink-0" />
+              <span className="truncate">
+                Complimentary Express Air Shipping on Orders Above ₹1,999 • 100% Pure Combed Cotton
+              </span>
+            </div>
+
+            <Link
+              href="/client-demo"
+              className="inline-flex items-center gap-1 bg-[#E6C687] hover:bg-white text-[#1E050D] px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider text-[9px] transition shrink-0 shadow-xs cursor-pointer active:scale-95"
+              title="Open Client Demo & Operational Cost Breakdown"
+            >
+              <Sparkles className="w-2.5 h-2.5 text-[#541827]" />
+              <span>Client Demo & Costs</span>
+              <ArrowRight className="w-2.5 h-2.5" />
+            </Link>
+          </div>
+        </div>
+
         {/* ============================================================ */}
         {/* 1. DEDICATED MOBILE HEADER (Matches Reference Image Exactly) */}
         {/* ============================================================ */}

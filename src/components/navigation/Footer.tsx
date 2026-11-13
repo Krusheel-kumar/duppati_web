@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowRight, Check, ShieldCheck, Truck } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Check, ShieldCheck, Truck, Sparkles } from "lucide-react";
 import confetti from "canvas-confetti";
 
 export default function Footer() {
@@ -182,6 +183,18 @@ export default function Footer() {
                   </p>
                 </div>
               </div>
+
+              {/* Client Demo & Costs Quick Link */}
+              <Link
+                href="/client-demo"
+                className="p-3 rounded-md bg-[#541827]/40 hover:bg-[#541827] border border-[#C28A42]/30 flex items-center justify-between text-[#E6C687] text-xs font-semibold transition group cursor-pointer"
+              >
+                <span className="flex items-center gap-2">
+                  <Sparkles className="w-3.5 h-3.5 text-[#E6C687]" />
+                  Client Demo & Cost Architecture
+                </span>
+                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+              </Link>
             </div>
           </div>
         </div>
