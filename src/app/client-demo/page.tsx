@@ -26,12 +26,14 @@ import {
   PackageCheck,
   Scale,
   Smartphone,
+  Store,
 } from "lucide-react";
 import CustomerJourneySimulator from "@/components/demo/CustomerJourneySimulator";
+import OwnerJourneySimulator from "@/components/demo/OwnerJourneySimulator";
 
 export default function ClientDemoPage() {
   const [activeTab, setActiveTab] = useState<
-    "simulator" | "calculator" | "payments" | "shipping" | "messaging" | "production"
+    "simulator" | "admin_simulator" | "calculator" | "payments" | "shipping" | "messaging" | "production"
   >("simulator");
 
   // Interactive Calculator State
@@ -205,7 +207,8 @@ export default function ClientDemoPage() {
       <div className="sticky top-[53px] z-40 bg-white/95 backdrop-blur-md border-b border-[#E5DDD0] shadow-2xs">
         <div className="max-w-6xl mx-auto px-4 flex items-center justify-start sm:justify-center gap-2 overflow-x-auto scrollbar-none py-2.5">
           {[
-            { id: "simulator", label: "Live Customer Journey Mock", icon: Smartphone },
+            { id: "simulator", label: "Customer Journey Flow", icon: Smartphone },
+            { id: "admin_simulator", label: "Store Owner / Admin Flow", icon: Store },
             { id: "calculator", label: "Interactive Cost Calculator", icon: Calculator },
             { id: "payments", label: "Payment Gateways (Razorpay)", icon: CreditCard },
             { id: "shipping", label: "Shiprocket & Delivery Models", icon: Truck },
@@ -234,12 +237,62 @@ export default function ClientDemoPage() {
 
       {/* 4. Tab Content Area */}
       <main className="max-w-6xl mx-auto px-4 sm:px-8 pt-8">
+        {/* Quick Dual-Perspective Switcher for Client Presentations */}
+        {(activeTab === "simulator" || activeTab === "admin_simulator") && (
+          <div className="mb-6 p-2 rounded-2xl bg-white border border-[#E5DDD0] shadow-2xs flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div className="flex items-center gap-2 pl-2 text-xs text-stone-600">
+              <span className="font-serif font-bold text-[#541827]">Interactive Demo View:</span>
+              <span className="hidden sm:inline text-stone-400">•</span>
+              <span className="text-stone-500">
+                {activeTab === "simulator"
+                  ? "Currently viewing: Shopper / Customer front-end experience"
+                  : "Currently viewing: Store Owner / Admin back-office fulfillment operations"}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-1.5 w-full sm:w-auto">
+              <button
+                onClick={() => setActiveTab("simulator")}
+                className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition cursor-pointer ${
+                  activeTab === "simulator"
+                    ? "bg-[#541827] text-white shadow-xs"
+                    : "bg-stone-100 hover:bg-stone-200 text-stone-700"
+                }`}
+              >
+                <Smartphone className="w-3.5 h-3.5 text-[#E6C687]" />
+                <span>1. Customer Flow</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab("admin_simulator")}
+                className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition cursor-pointer ${
+                  activeTab === "admin_simulator"
+                    ? "bg-[#541827] text-white shadow-xs"
+                    : "bg-stone-100 hover:bg-stone-200 text-stone-700"
+                }`}
+              >
+                <Store className="w-3.5 h-3.5 text-[#E6C687]" />
+                <span>2. Store Owner / Admin Flow</span>
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* ========================================================== */}
-        {/* TAB 0: LIVE CUSTOMER JOURNEY SIMULATOR (FEATURED MOCK)     */}
+        {/* TAB 0A: LIVE CUSTOMER JOURNEY SIMULATOR                    */}
         {/* ========================================================== */}
         {activeTab === "simulator" && (
           <div className="space-y-8 animate-fade-in">
             <CustomerJourneySimulator />
+          </div>
+        )}
+
+        {/* ========================================================== */}
+        {/* TAB 0B: LIVE STORE OWNER / ADMIN SIMULATOR                 */}
+        {/* ========================================================== */}
+        {activeTab === "admin_simulator" && (
+          <div className="space-y-8 animate-fade-in">
+            <OwnerJourneySimulator />
           </div>
         )}
 
