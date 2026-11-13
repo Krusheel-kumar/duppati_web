@@ -25,12 +25,14 @@ import {
   DollarSign,
   PackageCheck,
   Scale,
+  Smartphone,
 } from "lucide-react";
+import CustomerJourneySimulator from "@/components/demo/CustomerJourneySimulator";
 
 export default function ClientDemoPage() {
   const [activeTab, setActiveTab] = useState<
-    "calculator" | "payments" | "shipping" | "messaging" | "production"
-  >("calculator");
+    "simulator" | "calculator" | "payments" | "shipping" | "messaging" | "production"
+  >("simulator");
 
   // Interactive Calculator State
   const [monthlyOrders, setMonthlyOrders] = useState<number>(350);
@@ -203,6 +205,7 @@ export default function ClientDemoPage() {
       <div className="sticky top-[53px] z-40 bg-white/95 backdrop-blur-md border-b border-[#E5DDD0] shadow-2xs">
         <div className="max-w-6xl mx-auto px-4 flex items-center justify-start sm:justify-center gap-2 overflow-x-auto scrollbar-none py-2.5">
           {[
+            { id: "simulator", label: "Live Customer Journey Mock", icon: Smartphone },
             { id: "calculator", label: "Interactive Cost Calculator", icon: Calculator },
             { id: "payments", label: "Payment Gateways (Razorpay)", icon: CreditCard },
             { id: "shipping", label: "Shiprocket & Delivery Models", icon: Truck },
@@ -231,6 +234,15 @@ export default function ClientDemoPage() {
 
       {/* 4. Tab Content Area */}
       <main className="max-w-6xl mx-auto px-4 sm:px-8 pt-8">
+        {/* ========================================================== */}
+        {/* TAB 0: LIVE CUSTOMER JOURNEY SIMULATOR (FEATURED MOCK)     */}
+        {/* ========================================================== */}
+        {activeTab === "simulator" && (
+          <div className="space-y-8 animate-fade-in">
+            <CustomerJourneySimulator />
+          </div>
+        )}
+
         {/* ========================================================== */}
         {/* TAB 1: INTERACTIVE CALCULATOR                              */}
         {/* ========================================================== */}
